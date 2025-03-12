@@ -60,14 +60,13 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           <Link
             to="/"
-            className="flex items-center gap-2 transition-opacity hover:opacity-90"
+            className="flex items-center transition-opacity hover:opacity-90"
           >
-            <div className="h-10 w-10 rounded-full bg-sunflower-400 flex items-center justify-center">
-              <span className="font-bold text-white">SS</span>
-            </div>
-            <div className="font-semibold text-lg tracking-tight">
-              Sunflower Spectrum
-            </div>
+            <img 
+              src="/lovable-uploads/85d51504-cb0a-4c51-a0b1-7bdf9f64b022.png" 
+              alt="Sunflower Spectrum Logo" 
+              className="h-10" 
+            />
           </Link>
 
           {/* Mobile menu button */}

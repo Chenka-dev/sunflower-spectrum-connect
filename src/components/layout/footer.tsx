@@ -9,12 +9,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="h-10 w-10 rounded-full bg-sunflower-400 flex items-center justify-center">
-                <span className="font-bold text-white">SS</span>
-              </div>
-              <div className="font-semibold text-lg tracking-tight">
-                Sunflower Spectrum
-              </div>
+              <img 
+                src="/lovable-uploads/85d51504-cb0a-4c51-a0b1-7bdf9f64b022.png" 
+                alt="Sunflower Spectrum Logo" 
+                className="h-8" 
+              />
             </Link>
             <p className="text-sm text-muted-foreground">
               Supporting the neurodivergent community through connection and education.
