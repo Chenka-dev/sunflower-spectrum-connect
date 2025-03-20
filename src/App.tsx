@@ -11,6 +11,7 @@ import CenterProfile from "./pages/CenterProfile";
 import Events from "./pages/Events";
 import EventDetail from "./pages/EventDetail";
 import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetail />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
