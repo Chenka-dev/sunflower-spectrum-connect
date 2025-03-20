@@ -55,65 +55,40 @@ export const fetchTherapists = async (): Promise<Therapist[]> => {
  */
 export const fetchCenters = async (): Promise<Center[]> => {
   try {
-    // For demo purposes, we're using JSONPlaceholder API with a delayed response
-    // In a real app, you'd replace this with your actual API endpoint
-    const response = await fetch(`${API_URL}/companies?_delay=1000`);
+    // We know companies endpoint doesn't exist in JSONPlaceholder, so use users directly
+    const response = await fetch(`${API_URL}/users?_delay=1000`);
     
     if (!response.ok) {
-      // If the specific endpoint doesn't exist, fall back to a different one
-      const fallbackResponse = await fetch(`${API_URL}/users?_delay=1000`);
-      
-      if (!fallbackResponse.ok) {
-        throw new Error(`API error: ${fallbackResponse.status}`);
-      }
-      
-      const data = await fallbackResponse.json();
-      
-      // Transform the user data to match our Center type
-      return data.slice(0, 5).map((user: any, index: number): Center => ({
-        id: (index + 1).toString(),
-        name: user.company.name,
-        specialties: [
-          ["Autism", "ADHD", "Sensory Processing"],
-          ["Learning Disabilities", "ADHD", "Executive Functioning"],
-          ["Anxiety", "Depression", "Neurodivergent Support"]
-        ][index % 3],
-        location: `${user.address.city}, ${user.address.zipcode}`,
-        image: "/placeholder.svg",
-        description: user.company.catchPhrase + ". " + user.company.bs,
-        contactInfo: {
-          email: user.email,
-          phone: user.phone,
-          website: user.website
-        },
-        therapists: ["1", "2", "3"].slice(0, 1 + (index % 3)),
-        services: [
-          ["Individual Therapy", "Group Therapy", "Family Therapy", "Occupational Therapy"],
-          ["Academic Assessment", "Tutoring", "Executive Function Coaching", "Parent Training"],
-          ["Individual Therapy", "Art Therapy", "Mindfulness Programs", "Support Groups"]
-        ][index % 3],
-        featured: index < 2
-      }));
+      throw new Error(`API error: ${response.status}`);
     }
     
-    // If the actual endpoint works, use that data
     const data = await response.json();
-    return data.map((company: any): Center => ({
-      id: company.id.toString(),
-      name: company.name,
-      specialties: company.specialties || ["Autism", "ADHD", "Sensory Processing"],
-      location: company.location || "New York, NY",
-      image: company.image || "/placeholder.svg",
-      description: company.description || "A comprehensive treatment center for neurodivergent individuals.",
-      contactInfo: company.contactInfo || {
-        email: "info@example.com",
-        phone: "(555) 123-4567"
-      },
-      therapists: company.therapists || ["1", "2", "3"],
-      services: company.services || ["Individual Therapy", "Group Therapy", "Family Therapy"],
-      featured: company.featured || false
-    }));
     
+    // Transform the user data to match our Center type
+    return data.slice(0, 5).map((user: any, index: number): Center => ({
+      id: (index + 100).toString(), // Use different IDs from therapists
+      name: user.company.name,
+      specialties: [
+        ["Autism", "ADHD", "Sensory Processing"],
+        ["Learning Disabilities", "ADHD", "Executive Functioning"],
+        ["Anxiety", "Depression", "Neurodivergent Support"]
+      ][index % 3],
+      location: `${user.address.city}, ${user.address.zipcode}`,
+      image: "/placeholder.svg",
+      description: user.company.catchPhrase + ". " + user.company.bs,
+      contactInfo: {
+        email: user.email,
+        phone: user.phone,
+        website: user.website
+      },
+      therapists: ["1", "2", "3"].slice(0, 1 + (index % 3)),
+      services: [
+        ["Individual Therapy", "Group Therapy", "Family Therapy", "Occupational Therapy"],
+        ["Academic Assessment", "Tutoring", "Executive Function Coaching", "Parent Training"],
+        ["Individual Therapy", "Art Therapy", "Mindfulness Programs", "Support Groups"]
+      ][index % 3],
+      featured: index < 2
+    }));
   } catch (error) {
     console.error("Error fetching centers:", error);
     throw error;
